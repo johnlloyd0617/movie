@@ -1,122 +1,95 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState("");
+  const [playing, setPlaying] = useState("");
+
+  const movies = [
+    {
+      title: "Spider-Man",
+     
+      image:
+        "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=500",
+    },
+    {
+      title: "Avengers",
+     
+      image:
+        "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500",
+    },
+    {
+      title: "The Batman",
+   
+      image:
+        "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=500",
+    },
+    {
+      title: "John Wick",
+     
+      image:
+        "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500",
+    },
+    {
+      title: "Interstellar",
+      
+      image:
+        "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500",
+    },
+    {
+      title: "Jurassic Park",
+      
+      image:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500",
+    },
+  ];
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <div className="app">
+      <header>
+        <h1>🎬 MOVIEFLIX</h1>
+
+   
+      </header>
+
+      <div className="hero">
+        <h2>JOHN LLOYD A. BUENO</h2>
+        <p>Enjoy your favorite movies here.</p>
+
+        <button onClick={() => setPlaying("The Last Adventure")}>
+          ▶ Play
         </button>
-      </section>
 
-      <div className="ticks"></div>
+        {playing && <p>Now Playing: {playing}</p>}
+      </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <h2 className="title">My Movies</h2>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <div className="movies">
+        {filteredMovies.map((movie) => (
+          <div className="movie" key={movie.title}>
+            <img src={movie.image} alt={movie.title} />
+
+            <h3>{movie.title}</h3>
+
+           
+
+            <button onClick={() => setPlaying(movie.title)}>
+              ▶ Play
+            </button>
+
+            {playing === movie.title && (
+              <p className="playing">Now Playing</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
